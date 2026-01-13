@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PokemonGame;
 
 namespace Pokemon.Moves
 {
-    internal class Moves
+    public class Moves
     {
         int effecincy;
         string name;
@@ -21,9 +22,9 @@ namespace Pokemon.Moves
             this.moveKind = moveKind;
         }
 
-        public virtual void execute(Pokemon user, Pokemon target)
+        public virtual void execute(Creature user, Creature target)
         {
-            Console.WriteLine(user.Name + "uses " + name + "!");
+            Console.WriteLine(user.getName() + " uses " + name + "!");
         }
     }
 }

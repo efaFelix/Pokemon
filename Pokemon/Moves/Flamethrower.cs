@@ -4,15 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using PokemonGame;
 
 namespace Pokemon.Moves
 {
-    public class Flamethrower : Moves
+    class Flamethrower : Moves
     {
-        public override void execute(Pokemon user, Pokemon target)
+
+        public Flamethrower() : base(90, "Flamethrower", "Fire", "Special")
         {
-            Console.WriteLine(user.Name + "uses " + name + "!");
-            target.hp - user.atk;
+        }
+        public override void execute(Creature user, Creature target)
+        {
+
+            Console.WriteLine(user.getName() + " uses " + "Flamethrower" + "!");
+            // Additional logic for Flamethrower can be added here
         }
     }
 }

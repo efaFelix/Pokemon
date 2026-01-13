@@ -1,19 +1,20 @@
 ﻿using Microsoft.VisualBasic;
+using Pokemon.Moves;
 
-namespace Pokemon
+namespace PokemonGame
 {
 
     public class GameController
     {
-        Pokemon yourPokemon;
+        Creature yourPokemon;
 
-        private List<Pokemon> pokeList = new List<Pokemon>();
+        private List<Creature> pokeList = new List<Creature>();
 
         public GameController()
         {
-            pokeList.Add(new Pokemon("Glumanda", "Fire", 100, 75));
-            pokeList.Add(new Pokemon("Schiggy", "Whater", 125, 50));
-            pokeList.Add(new Pokemon("Bisasam", "Plant", 175, 25));
+            pokeList.Add(new Creature("Glumanda", "Fire", 100, 75, new List<Moves>()));
+            pokeList.Add(new Creature("Schiggy", "Water", 125, 50, new List<Moves>()));
+            pokeList.Add(new Creature("Bisasam", "Plant", 175, 25, new List<Moves>()));
         }
 
 
@@ -60,14 +61,14 @@ namespace Pokemon
                 }
 
                 // Prüfen, ob das Pokémon existiert (Case-insensitive)
-                if (pokeList.Exists(p => p.Name.Equals(input, StringComparison.OrdinalIgnoreCase)))
+                if (pokeList.Exists(p => p.getName().Equals(input, StringComparison.OrdinalIgnoreCase)))
                 {
                     Console.WriteLine($"Dr. Oak: You have chosen {input}. Are you sure you want to become its Trainer? [yes/no]");
                     string ans = Console.ReadLine()?.Trim().ToLower();
 
                     if (ans.Equals(ans, StringComparison.OrdinalIgnoreCase))
                     {
-                        yourPokemon = pokeList.FirstOrDefault(p => p.Name == "Glumanda");
+                        yourPokemon = pokeList.FirstOrDefault(p => p.getName() == "Glumanda");
                         Console.WriteLine("Dr. Oak: Great!");
                         var enemyPokemon = SetEnemyPokemon(yourPokemon);
                         break; // Schleife verlassen
@@ -80,7 +81,7 @@ namespace Pokemon
                     else
                     {
                         Console.WriteLine("Dr. Oak: I'll take that as a yes!");
-                        yourPokemon = pokeList.FirstOrDefault(p => p.Name == "Glumanda");
+                        yourPokemon = pokeList.FirstOrDefault(p => p.getName() == "Glumanda");
                         var enemyPokemon = SetEnemyPokemon(yourPokemon);
                         break;
                     }
@@ -100,26 +101,26 @@ namespace Pokemon
             }
         }
 
-        public Pokemon SetEnemyPokemon(Pokemon yourPokemon)
+        public Creature SetEnemyPokemon(Creature yourPokemon)
         {
-            Pokemon enemyPokemon;
+            Creature enemyPokemon;
 
             Console.WriteLine("Unknown: Not so fast old mann, I also come here to become a Pokemon trainer!");
 
-            if (yourPokemon.Name == "Glumanda")
+            if (yourPokemon.getName() == "Glumanda")
             {
-                enemyPokemon = pokeList.FirstOrDefault(p => p.Name == "Shiggy");
+                enemyPokemon = pokeList.FirstOrDefault(p => p.getName() == "Schiggy");
             }
-            else if (yourPokemon.Name == "Schiggy")
+            else if (yourPokemon.getName() == "Schiggy")
             {
-                enemyPokemon = pokeList.FirstOrDefault(p => p.Name == "Bisasam");
+                enemyPokemon = pokeList.FirstOrDefault(p => p.getName() == "Bisasam");
             }
             else
             {
-                enemyPokemon = pokeList.FirstOrDefault(p => p.Name == "Glumanda");
+                enemyPokemon = pokeList.FirstOrDefault(p => p.getName() == "Glumanda");
             }
 
-            Console.WriteLine("Unknown: I am Blue! And I choose you " + enemyPokemon.Name + "!");
+            Console.WriteLine("Unknown: I am Blue! And I choose you " + enemyPokemon.getName() + "!");
             Console.WriteLine("Blue: And you, yeah you lets fight!");
             return enemyPokemon;
         }
